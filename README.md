@@ -5,7 +5,7 @@
 - 组件库: arco-design
 
 ### 演示
-![](/Users/hongcha/Desktop/Code/App/tauri-macos/doc/demo.gif)
+![](https://github.com/tiandi0228/tauri-macos/blob/main/doc/demo.gif)
 
 
 
