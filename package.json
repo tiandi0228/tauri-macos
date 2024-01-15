@@ -13,7 +13,7 @@
         "web:serve": "vite preview"
     },
     "dependencies": {
-        "@arco-design/web-react": "^2.57.2",
+        "@arco-design/web-react": "^2.58.3",
         "@tauri-apps/api": "^1.5.2",
         "lodash": "^4.17.21",
         "qs": "^6.11.2",
