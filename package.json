@@ -1,0 +1,48 @@
+{
+    "name": "tauri-macos",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "dev": "tauri dev",
+        "dev:diff": "tauri dev -f verge-dev",
+        "build": "tauri build",
+        "tauri": "tauri",
+        "web:dev": "vite",
+        "web:build": "tsc && vite build",
+        "web:serve": "vite preview"
+    },
+    "dependencies": {
+        "@arco-design/web-react": "^2.57.2",
+        "@tauri-apps/api": "^1.5.2",
+        "lodash": "^4.17.21",
+        "qs": "^6.11.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-redux": "^9.0.4",
+        "react-router-dom": "^6.11.2",
+        "recoil": "^0.7.7",
+        "redux": "^4.2.1",
+        "xlsx": "^0.18.5"
+    },
+    "devDependencies": {
+        "@tauri-apps/cli": "^1.5.8",
+        "@types/react": "^18.2.15",
+        "@types/react-dom": "^18.2.7",
+        "@types/react-redux": "^7.1.25",
+        "@types/react-router-dom": "^5.3.3",
+        "@types/redux-promise": "^0.5.32",
+        "@vitejs/plugin-react": "^4.0.3",
+        "autoprefixer": "^10.4.16",
+        "less": "^4.2.0",
+        "postcss": "^8.4.32",
+        "tailwindcss": "^3.4.0",
+        "typescript": "^5.0.2",
+        "vite": "^5.0.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-git"
+        }
+    }
+}

@@ -1,0 +1,1 @@
+export { default as localStorage} from './local-storage';

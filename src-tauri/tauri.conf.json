@@ -1,0 +1,79 @@
+{
+    "build": {
+        "beforeDevCommand": "yarn run web:dev",
+        "beforeBuildCommand": "yarn run web:build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist",
+        "withGlobalTauri": false
+    },
+    "package": {
+        "productName": "MacHub",
+        "version": "0.0.1"
+    },
+    "tauri": {
+        "allowlist": {
+            "shell": {
+                "all": true
+            },
+            "window": {
+                "all": true
+            },
+            "process": {
+                "all": true
+            },
+            "globalShortcut": {
+                "all": true
+            }
+        },
+        "bundle": {
+            "active": true,
+            "targets": "all",
+            "identifier": "im.syc",
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ],
+            "macOS": {
+                "frameworks": [],
+                "minimumSystemVersion": "",
+                "exceptionDomain": "",
+                "signingIdentity": null,
+                "entitlements": null
+            },
+            "windows": {
+                "certificateThumbprint": null,
+                "digestAlgorithm": "sha256",
+                "timestampUrl": "",
+                "wix": {
+                    "language": ["zh-CN", "en-US", "ru-RU"]
+                }
+            }
+        },
+        "security": {
+            "csp": "script-src 'unsafe-eval' 'self'; default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self'; img-src data: 'self';"
+        },
+        "updater": {
+            "active": true,
+            "endpoints": ["https://tiandi0228.github.io/DataHub/FileData/update/index.json"],
+            "dialog": false,
+            "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDFENTI5QTk0ODk3MUY4NDkKUldSSitIR0psSnBTSFRvQlBXNUxydDJ5dVFLaG9XOTVOeUZZYnNWRjlOekdFclk1NHRtbzN4UWkK"
+        },
+        "macOSPrivateApi": true,
+        "windows": [
+            {
+                "fullscreen": false,
+                "resizable": false,
+                "title": "",
+                "width": 1920,
+                "height": 1080,
+                "center": true,
+                "transparent": true,
+                "decorations": false,
+                "label": "main"
+            }
+        ]
+    }
+}

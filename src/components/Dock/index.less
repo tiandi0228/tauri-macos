@@ -1,0 +1,53 @@
+.s-dock {
+    position: relative;
+    display: inline-block;
+    z-index: 99999;
+    --scale: 1;
+
+    &-base {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -10;
+    }
+
+    ul {
+        padding: 0 10px;
+        margin: 0;
+    }
+
+    li {
+        display: inline-block;
+        position: relative;
+        margin-right: 0.5em;
+        margin-left: 0.5em;
+        padding: 0 .1em;
+        transition: 15ms all ease-out;
+        -webkit-transition: all 0.3s;
+
+        .loading {
+            animation: 1s loading ease-in infinite;
+        }
+    }
+}
+
+@keyframes loading {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    60% {
+        transform: translateY(-40px);
+    }
+}
+
+.s-dock li:hover {
+    -webkit-transform: scale(calc(var(--scale) + 0.7));
+    margin: 0 1.5em 10px;
+}
+
+.s-dock li:hover + li,
+.s-dock li.prev {
+    -webkit-transform: scale(calc(var(--scale)));
+    margin: 0 1.5em 10px;
+}
