@@ -6,7 +6,7 @@
 
 ### 演示
 ![](https://github.com/tiandi0228/tauri-macos/blob/main/doc/demo.gif)
-
+![](https://github.com/tiandi0228/tauri-macos/blob/main/doc/demo1.gif)
 
 
 ### 问题
