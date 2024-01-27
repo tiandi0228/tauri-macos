@@ -7,12 +7,14 @@ import map from '@/assets/map.svg';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { DockState } from '@/store/dock';
 import './index.less';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { AppMenuType } from '@/@types/app-menu';
 import { AppMenuState } from '@/store/app-menu';
 import { AppType } from '@/@types/app-menu';
 
 function Dock() {
+    const dockRef = useRef<HTMLDivElement>(null);
+
     const defaultApp: AppMenuType[] = [
         {
             id: 1,
@@ -50,20 +52,6 @@ function Dock() {
     const [appList, setAppList] = useRecoilState(AppMenuState);
 
     useEffect(() => {
-        if (window && document) {
-            document
-                .getElementsByClassName('s-dock')[0]
-                ?.addEventListener('mouseover', addScale, false);
-        }
-
-        return () => {
-            document
-                .getElementsByClassName('s-dock')[0]
-                ?.removeEventListener('mouseover', addScale, false);
-        };
-    }, [dockState.zoom]);
-
-    useEffect(() => {
         // 初始化dock
         setAppList((old: AppType) => {
             let _app: AppType = { ...old };
@@ -72,43 +60,29 @@ function Dock() {
         });
     }, []);
 
+    const scaleValue = (value: number, from: [number, number], to: [number, number]) => {
+        const scale = (to[1] - to[0]) / (from[1] - from[0]);
+        const capped = Math.min(from[1], Math.max(from[0], value)) - from[0];
+        return Math.floor(capped * scale + to[0]);
+    };
+
     /**
      * 添加scale和class到当前鼠标触发节点上
      *
      * @param {any} e
      */
     const addScale = (e: any) => {
-        const target = e.target;
-        if (target.tagName === 'IMG') {
-            const li = target.parentNode.parentNode.parentNode;
-            const prevLi = li.previousElementSibling;
-            const nextLi = li.nextElementSibling;
-
-            if (prevLi) {
-                prevLi.className = 'prev';
-                prevLi.style.setProperty('--scale', `${dockState.zoom}`);
-            }
-
-            if (nextLi) {
-                nextLi.className = 'prev';
-                nextLi.style.setProperty('--scale', `${dockState.zoom}`);
-            }
-
-            target.addEventListener(
-                'mouseout',
-                function () {
-                    if (prevLi) {
-                        prevLi.removeAttribute('class');
-                        prevLi.style.setProperty('--scale', '1');
-                    }
-                    if (nextLi) {
-                        nextLi.removeAttribute('class');
-                        nextLi.style.setProperty('--scale', '1');
-                    }
-                },
-                false
-            );
-        }
+        const mousePosition = e.clientX;
+        const iconPositionLeft = e.currentTarget.getBoundingClientRect().left;
+        const iconWidth = e.currentTarget.getBoundingClientRect().width;
+        const cursorDistance = (mousePosition - iconPositionLeft) / iconWidth;
+        const offsetPixels = scaleValue(
+            cursorDistance,
+            [0, 1],
+            [dockState.zoom * -1, dockState.zoom]
+        );
+        dockRef.current?.style.setProperty('--dock-offset-left', `${offsetPixels * -1}px`);
+        dockRef.current?.style.setProperty('--dock-offset-right', `${offsetPixels}px`);
     };
 
     /**
@@ -163,24 +137,32 @@ function Dock() {
 
     return (
         <div
-            className={`s-dock w-fit fixed left-1/2 bottom-1 -translate-x-1/2 py-2 flex items-center transition delay-100 duration-300 ease-in-out ${
+            className={`s-dock fixed left-1/2 bottom-3 -translate-x-1/2 rounded-xl flex items-end justify-center transition delay-100 duration-300 ease-in-out ${
                 dockState.autoHide ? 'translate-y-60' : ''
             }`}
+            ref={dockRef}
+            style={{ '--width': `${dockState.size}` }}
         >
-            <ul>
+            <ul className="s-dock-items">
                 {appList.defaultApp.map((item: AppMenuType, index: number) => {
                     return (
-                        <li key={index} onClick={() => openApp(index, 1)}>
-                            <Tooltip mini content={item.title} className="-mt-6">
+                        <li
+                            className="s-dock-item"
+                            style={{ '--width': `${dockState.size}` }}
+                            key={index}
+                            onClick={() => openApp(index, 1)}
+                            onMouseMove={addScale}
+                        >
+                            <Tooltip mini content={item.title} className="-mt-4">
                                 <Image
-                                    width={dockState.size * 40}
+                                    style={{ '--width': `${dockState.size}` }}
                                     preview={false}
                                     src={item.icon}
                                 />
                                 {dockState.indicator && (
                                     <div
                                         className={`m-auto ${
-                                            item.isOpen ? 'w-1 h-1 bg-black mt-2' : ''
+                                            item.isOpen ? 'w-1 h-1 bg-gray-400 mt-2' : ''
                                         } rounded-full`}
                                     ></div>
                                 )}
@@ -190,19 +172,24 @@ function Dock() {
                 })}
             </ul>
             {appList.otherApp.length > 0 && (
-                <ul className="border-l border-gray-400 ">
+                <ul className="s-dock-items border-l border-gray-400 ">
                     {appList.otherApp.map((item, index: number) => {
                         return (
-                            <li key={index} onClick={() => openApp(index, 2)}>
+                            <li
+                                className="s-dock-item"
+                                style={{ '--width': `${dockState.size}` }}
+                                key={index}
+                                onClick={() => openApp(index, 2)}
+                            >
                                 <Tooltip mini content={item.title} className="-mt-6">
                                     <Image
-                                        width={dockState.size * 40}
+                                        style={{ '--width': `${dockState.size}` }}
                                         preview={false}
                                         src={item.icon}
                                     />
                                     {dockState.indicator && (
                                         <div
-                                            className={`m-auto w-1 h-1 bg-black mt-2 rounded-full`}
+                                            className={`m-auto w-1 h-1 bg-gray-400 mt-2 rounded-full`}
                                         ></div>
                                     )}
                                 </Tooltip>
@@ -212,19 +199,24 @@ function Dock() {
                 </ul>
             )}
             {appList.tempApp.length > 0 && (
-                <ul className="border-l border-gray-400 ">
+                <ul className="s-dock-items border-l border-gray-400 ">
                     {appList.tempApp.map((item, index: number) => {
                         return (
-                            <li key={index} onClick={() => openApp(index, 3, item.id)}>
+                            <li
+                                className="s-dock-item"
+                                style={{ '--width': `${dockState.size}` }}
+                                key={index}
+                                onClick={() => openApp(index, 3, item.id)}
+                            >
                                 <Tooltip mini content={item.title} className="-mt-6">
                                     <Image
-                                        width={dockState.size * 40}
+                                        style={{ '--width': `${dockState.size}` }}
                                         preview={false}
                                         src={item.icon}
                                     />
                                     {dockState.indicator && (
                                         <div
-                                            className={`m-auto w-1 h-1 bg-black mt-2 rounded-full`}
+                                            className={`m-auto w-1 h-1 bg-gray-400 mt-2 rounded-full`}
                                         ></div>
                                     )}
                                 </Tooltip>
@@ -233,7 +225,6 @@ function Dock() {
                     })}
                 </ul>
             )}
-            <div className="s-dock-base bg-gray-400 bg-opacity-60 border border-white border-opacity-30 rounded-2xl"></div>
         </div>
     );
 }

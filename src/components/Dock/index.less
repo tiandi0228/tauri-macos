@@ -1,53 +1,61 @@
 .s-dock {
-    position: relative;
-    display: inline-block;
+    --dock-offset-right: 1;
+    --dock-offset-left: 1;
+    --width: 1;
+    height: calc(var(--width, 1) * 50px);
+    box-sizing: content-box;
+    padding: 10px 10px 0 10px;
     z-index: 99999;
-    --scale: 1;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15));
+    box-shadow: rgba(255, 255, 255, 0.17) 0px 0px 0px 1px inset;
 
-    &-base {
-        position: absolute;
-        bottom: 0;
+    &-items {
+        display: flex;
+    }
+
+    &-item {
+        transition: width, height, margin-top, cubic-bezier(0.25, 1, 0.5, 1) 100ms;
+    }
+
+    &-item:hover {
+        width: calc(var(--width, 1) * 80px);
+        height: calc(var(--width, 1) * 80px);
+        margin-top: -30px;
+    }
+
+    &-item:hover+&-item {
+        width: calc(calc(var(--width, 1) * 70px) + var(--dock-offset-right, 0px));
+        height: calc(calc(var(--width, 1) * 70px) + var(--dock-offset-right, 0px));
+        margin-top: calc(-20px + var(--dock-offset-right, 0px) * -1);
+    }
+
+    &-item:hover+&-item+&-item {
+        width: calc(calc(var(--width, 1) * 60px) + var(--dock-offset-right, 0px));
+        height: calc(calc(var(--width, 1) * 60px) + var(--dock-offset-right, 0px));
+        margin-top: calc(-10px + var(--dock-offset-right, 0px) * -1);
+    }
+
+    &-item:has(+ &-item:hover) {
+        width: calc(calc(var(--width, 1) * 70px) + var(--dock-offset-left, 0px));
+        height: calc(calc(var(--width, 1) * 70px) + var(--dock-offset-left, 0px));
+        margin-top: calc(-20px + var(--dock-offset-left, 0px) * -1);
+    }
+
+    &-item:has(+ &-item + &-item:hover) {
+        width: calc(calc(var(--width, 1) * 60px) + var(--dock-offset-left, 0px));
+        height: calc(calc(var(--width, 1) * 60px) + var(--dock-offset-left, 0px));
+        margin-top: calc(-10px + var(--dock-offset-left, 0px) * -1);
+    }
+
+    &-item {
+        width: calc(var(--width, 1) * 50px);
+        height: calc(var(--width, 1) * 50px);
+        padding: 0 6px;
+        position: relative;
+    }
+
+    &-item img {
         width: 100%;
         height: 100%;
-        z-index: -10;
     }
-
-    ul {
-        padding: 0 10px;
-        margin: 0;
-    }
-
-    li {
-        display: inline-block;
-        position: relative;
-        margin-right: 0.5em;
-        margin-left: 0.5em;
-        padding: 0 .1em;
-        transition: 15ms all ease-out;
-        -webkit-transition: all 0.3s;
-
-        .loading {
-            animation: 1s loading ease-in infinite;
-        }
-    }
-}
-
-@keyframes loading {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    60% {
-        transform: translateY(-40px);
-    }
-}
-
-.s-dock li:hover {
-    -webkit-transform: scale(calc(var(--scale) + 0.7));
-    margin: 0 1.5em 10px;
-}
-
-.s-dock li:hover + li,
-.s-dock li.prev {
-    -webkit-transform: scale(calc(var(--scale)));
-    margin: 0 1.5em 10px;
 }

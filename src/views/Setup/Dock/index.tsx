@@ -13,12 +13,12 @@ function Dock() {
                     <Slider
                         defaultValue={dock.size}
                         min={1}
-                        max={2}
+                        max={1.5}
                         step={0.1}
                         showTicks={false}
                         marks={{
                             1: '小',
-                            2: '大'
+                            1.5: '大'
                         }}
                         onChange={(e: number | number[]) => {
                             setDock(old => ({ ...old, size: Number(e) }));
@@ -34,12 +34,12 @@ function Dock() {
                     <Slider
                         defaultValue={dock.zoom}
                         min={1}
-                        max={1.5}
-                        step={0.1}
+                        max={5}
+                        step={1}
                         showTicks={false}
                         marks={{
                             1: '小',
-                            1.5: '大'
+                            5: '大'
                         }}
                         onChange={(e: number | number[]) => {
                             setDock(old => ({ ...old, zoom: Number(e) }));
