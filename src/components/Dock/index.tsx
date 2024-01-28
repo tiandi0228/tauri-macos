@@ -1,4 +1,3 @@
-import { Image, Tooltip } from '@arco-design/web-react';
 import finder from '@/assets/finder.svg';
 import safari from '@/assets/safari.svg';
 import memorandum from '@/assets/memorandum.svg';
@@ -11,6 +10,7 @@ import { useEffect, useRef } from 'react';
 import { AppMenuType } from '@/@types/app-menu';
 import { AppMenuState } from '@/store/app-menu';
 import { AppType } from '@/@types/app-menu';
+import { DockCard } from '../DockCard';
 
 function Dock() {
     const dockRef = useRef<HTMLDivElement>(null);
@@ -137,93 +137,39 @@ function Dock() {
 
     return (
         <div
-            className={`s-dock fixed left-1/2 bottom-3 -translate-x-1/2 rounded-xl flex items-end justify-center transition delay-100 duration-300 ease-in-out ${
+            className={`s-dock fixed left-1/2 bottom-3 -translate-x-1/2 rounded-xl flex justify-center transition delay-100 duration-300 ease-in-out ${
                 dockState.autoHide ? 'translate-y-60' : ''
             }`}
             ref={dockRef}
             style={{ '--width': `${dockState.size}` }}
         >
-            <ul className="s-dock-items">
-                {appList.defaultApp.map((item: AppMenuType, index: number) => {
-                    return (
-                        <li
-                            className="s-dock-item"
-                            style={{ '--width': `${dockState.size}` }}
-                            key={index}
-                            onClick={() => openApp(index, 1)}
-                            onMouseMove={addScale}
-                        >
-                            <Tooltip mini content={item.title} className="-mt-4">
-                                <Image
-                                    style={{ '--width': `${dockState.size}` }}
-                                    preview={false}
-                                    src={item.icon}
-                                />
-                                {dockState.indicator && (
-                                    <div
-                                        className={`m-auto ${
-                                            item.isOpen ? 'w-1 h-1 bg-gray-400 mt-2' : ''
-                                        } rounded-full`}
-                                    ></div>
-                                )}
-                            </Tooltip>
-                        </li>
-                    );
-                })}
-            </ul>
+            <DockCard
+                data={appList.defaultApp}
+                indicator={dockState.indicator}
+                size={dockState.size}
+                type={1}
+                onOpenApp={openApp}
+                onMouseMove={addScale}
+            />
             {appList.otherApp.length > 0 && (
-                <ul className="s-dock-items border-l border-gray-400 ">
-                    {appList.otherApp.map((item, index: number) => {
-                        return (
-                            <li
-                                className="s-dock-item"
-                                style={{ '--width': `${dockState.size}` }}
-                                key={index}
-                                onClick={() => openApp(index, 2)}
-                            >
-                                <Tooltip mini content={item.title} className="-mt-6">
-                                    <Image
-                                        style={{ '--width': `${dockState.size}` }}
-                                        preview={false}
-                                        src={item.icon}
-                                    />
-                                    {dockState.indicator && (
-                                        <div
-                                            className={`m-auto w-1 h-1 bg-gray-400 mt-2 rounded-full`}
-                                        ></div>
-                                    )}
-                                </Tooltip>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <DockCard
+                    data={appList.otherApp}
+                    indicator={dockState.indicator}
+                    size={dockState.size}
+                    type={2}
+                    onOpenApp={openApp}
+                    onMouseMove={addScale}
+                />
             )}
             {appList.tempApp.length > 0 && (
-                <ul className="s-dock-items border-l border-gray-400 ">
-                    {appList.tempApp.map((item, index: number) => {
-                        return (
-                            <li
-                                className="s-dock-item"
-                                style={{ '--width': `${dockState.size}` }}
-                                key={index}
-                                onClick={() => openApp(index, 3, item.id)}
-                            >
-                                <Tooltip mini content={item.title} className="-mt-6">
-                                    <Image
-                                        style={{ '--width': `${dockState.size}` }}
-                                        preview={false}
-                                        src={item.icon}
-                                    />
-                                    {dockState.indicator && (
-                                        <div
-                                            className={`m-auto w-1 h-1 bg-gray-400 mt-2 rounded-full`}
-                                        ></div>
-                                    )}
-                                </Tooltip>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <DockCard
+                    data={appList.tempApp}
+                    indicator={dockState.indicator}
+                    size={dockState.size}
+                    type={3}
+                    onOpenApp={openApp}
+                    onMouseMove={addScale}
+                />
             )}
         </div>
     );
