@@ -3,17 +3,38 @@ import { Modal } from '@/components';
 import { AppMenuState } from '@/store/app-menu';
 import { Input, Progress } from '@arco-design/web-react';
 import { IconClose, IconLeft, IconRefresh, IconRight } from '@arco-design/web-react/icon';
-import { useRef, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useEffect, useRef, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 function Safari() {
     const iframeRef = useRef(null);
 
-    const [closeWindow, setCloseWindow] = useState<boolean>(true);
+    const appList = useRecoilValue(AppMenuState);
     const setAppList = useSetRecoilState(AppMenuState);
+
+    const [closeWindow, setCloseWindow] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [percent, setPercent] = useState<number>(0);
-    const [url, setUrl] = useState<string>('');
+    const [url, setUrl] = useState<string>('https://syc.im/');
+
+    // 监听默认app打开
+    useEffect(() => {
+        appList.defaultApp.forEach((app: AppMenuType) => {
+            if (app.id === 2 && app.isOpen) {
+                setCloseWindow(false);
+            }
+        });
+    }, [appList.defaultApp]);
+
+    // 监听临时app打开
+    useEffect(() => {
+        appList.tempApp.forEach((app: AppMenuType) => {
+            if (app.id === 2 && app.isOpen) {
+                setCloseWindow(false);
+            }
+        });
+    }, [appList.tempApp]);
+
     /**
      * 关闭窗口
      *
@@ -29,8 +50,8 @@ function Safari() {
             let _index: number = 0;
             let _tempIndex: number = 0;
             _app.defaultApp.forEach((item: AppMenuType, index: number) => {
-                _item = { ...item };
                 if (item.id === 2) {
+                    _item = { ...item };
                     _index = index;
                     _item.isOpen = false;
                 }
@@ -58,9 +79,7 @@ function Safari() {
             let _item: AppMenuType = { id: 0, title: '', icon: '', isOpen: false };
             let _index: number = 0;
             let arr: number[] = [];
-            _app.defaultApp.forEach((item: AppMenuType) => {
-                _item = { ...item };
-            });
+            _item = { ..._app.defaultApp[1] };
 
             // 如果在临时应用中已经打开了对应的应用，直接返回
             const _tempIndex = _tempApp.findIndex(old => old.id === 2);
@@ -83,6 +102,7 @@ function Safari() {
             let max: number = Math.max(...arr); // 获取临时APP的id最大值
             _item.id = _item.id === 0 ? (Number.isFinite(max) ? max + 1 : 0) : _item.id; // 如果打开的应用不是默认应用，应用id加1
             _item.isOpen = false;
+
             _tempApp.splice(_index, 1); // 删除临时app
             _tempApp.splice(_index, 0, _item); // 插入修改后的临时app
             _app.tempApp = _tempApp;
@@ -119,7 +139,7 @@ function Safari() {
     };
 
     return (
-        <Modal visible={closeWindow}>
+        <Modal visible={!closeWindow}>
             <div className="h-full select-none relative">
                 <div className="h-12 flex items-center">
                     <div className="flex p-4">

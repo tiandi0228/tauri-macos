@@ -65,8 +65,8 @@ function Setup() {
             let _index: number = 0;
             let _tempIndex: number = 0;
             _app.defaultApp.forEach((item: AppMenuType, index: number) => {
-                _item = { ...item };
                 if (item.id === 5) {
+                    _item = { ...item };
                     _index = index;
                     _item.isOpen = false;
                 }
@@ -94,9 +94,7 @@ function Setup() {
             let _item: AppMenuType = { id: 0, title: '', icon: '', isOpen: false };
             let _index: number = 0;
             let arr: number[] = [];
-            _app.defaultApp.forEach((item: AppMenuType) => {
-                _item = { ...item };
-            });
+            _item = { ..._app.defaultApp[4] };
 
             // 如果在临时应用中已经打开了对应的应用，直接返回
             const _tempIndex = _tempApp.findIndex(old => old.id === 5);
