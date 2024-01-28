@@ -4,6 +4,7 @@ import Setup from '@/views/Setup';
 import { useRecoilValue } from 'recoil';
 import Desktop from '@/views/Desktop';
 import Login from '@/views/Login';
+import Safari from '@/views/Safari';
 
 function Layouts() {
     const t = useRecoilValue(globalState);
@@ -26,6 +27,7 @@ function Layouts() {
                     <Dock />
 
                     <Setup />
+                    <Safari />
                 </>
             )}
         </div>

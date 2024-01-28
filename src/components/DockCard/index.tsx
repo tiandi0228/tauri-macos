@@ -20,7 +20,7 @@ export const DockCard = ({
 }: DockCardProps) => {
     return (
         <>
-            <div className="s-dock-divider"></div>
+            {type !== 1 && <div className="s-dock-divider"></div>}
             <ul className="s-dock-items">
                 {data.map((item: AppMenuType, index: number) => {
                     return (
