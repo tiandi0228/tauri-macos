@@ -5,6 +5,7 @@ import { Input, Progress } from '@arco-design/web-react';
 import { IconClose, IconLeft, IconRefresh, IconRight } from '@arco-design/web-react/icon';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import bg from '@/assets/bg/2.jpeg';
 
 function Safari() {
     const iframeRef = useRef(null);
@@ -16,6 +17,7 @@ function Safari() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [percent, setPercent] = useState<number>(0);
     const [url, setUrl] = useState<string>('https://syc.im/');
+    const [urls, setUrls] = useState<string[]>([]);
 
     // 监听默认app打开
     useEffect(() => {
@@ -34,6 +36,10 @@ function Safari() {
             }
         });
     }, [appList.tempApp]);
+
+    useEffect(() => {
+        onReload();
+    }, [url]);
 
     /**
      * 关闭窗口
@@ -116,13 +122,14 @@ function Safari() {
      * @param {string} url - url
      */
     const onReload = (url?: string) => {
-        if (iframeRef.current) {
+        const iframe = iframeRef.current;
+        if (iframe) {
             setTimeout(() => {
-                iframeRef.current.src = url ? url : iframeRef.current.src;
+                iframe.src = url ? url : iframe.src;
                 setPercent(100);
             }, 1000);
             setIsLoading(true);
-            iframeRef.current.onload = () => {
+            iframe.onload = () => {
                 setIsLoading(false);
                 setPercent(0);
             };
@@ -134,8 +141,25 @@ function Safari() {
      * @param e
      */
     const onEnter = (e: any) => {
-        setUrl(e.target.value);
-        onReload(e.target.value);
+        const value = e.target.value;
+        if (!value) return;
+        setUrl(value);
+        onReload(value);
+        setUrls(old => [...old, value]);
+    };
+
+    /**
+     * 回退
+     */
+    const onBack = () => {
+
+    };
+
+    /**
+     * 前进
+     */
+    const onAdvance = () => {
+
     };
 
     return (
@@ -153,16 +177,33 @@ function Safari() {
                         ></div>
                     </div>
                     <div className="h-full flex items-center">
-                        <div className="w-8 h-8 hover:bg-gray-200 rounded-md flex items-center justify-center">
-                            <IconLeft style={{ fontSize: '1.2rem' }} className="text-gray-400" />
+                        <div
+                            className={`w-8 h-8 hover:bg-gray-200 rounded-md flex items-center justify-center`}
+                            onClick={onBack}
+                        >
+                            <IconLeft
+                                style={{ fontSize: '1.2rem' }}
+                                className={`${
+                                    urls.length === 2 ? 'text-gray-500' : 'text-gray-400'
+                                }`}
+                            />
                         </div>
-                        <div className="w-8 h-8 hover:bg-gray-200 rounded-md flex items-center justify-center">
-                            <IconRight style={{ fontSize: '1.2rem' }} className="text-gray-400" />
+                        <div
+                            className="w-8 h-8 hover:bg-gray-200 rounded-md flex items-center justify-center"
+                            onClick={onAdvance}
+                        >
+                            <IconRight
+                                style={{ fontSize: '1.2rem' }}
+                                className={`${
+                                    urls.length === 2 ? 'text-gray-500' : 'text-gray-400'
+                                }`}
+                            />
                         </div>
                     </div>
                     <div className="w-2/4 absolute left-1/2 -translate-x-1/2 rounded-md">
                         <div className="relative">
                             <Input
+                                disabled
                                 className="absolute -top-4"
                                 defaultValue={url}
                                 placeholder="请输入网址"
@@ -193,15 +234,22 @@ function Safari() {
                 </div>
                 <div
                     style={{ height: 'calc(100% - 3rem)' }}
-                    className="s-safari overflow-hidden bg-white"
+                    className="s-safari overflow-hidden bg-slate-200"
                 >
-                    <iframe
-                        ref={iframeRef}
-                        className="w-full h-full border-0"
-                        src={url}
-                        sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-                        allow="accelerometer; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; clipboard-write;"
-                    />
+                    {url ? (
+                        <iframe
+                            ref={iframeRef}
+                            className="w-full h-full border-0"
+                            src={url}
+                            sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+                            allow="accelerometer; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; clipboard-write;"
+                        />
+                    ) : (
+                        <div
+                            style={{ backgroundImage: `url(${bg})` }}
+                            className="w-full h-full bg-cover"
+                        ></div>
+                    )}
                 </div>
             </div>
         </Modal>
