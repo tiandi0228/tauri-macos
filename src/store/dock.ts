@@ -5,7 +5,7 @@ import { DockType } from "@/@types/dock";
 const initialState: DockType = {
     size: 1,
     zoom: 1,
-    autoHide: true,
+    autoHide: false,
     indicator: true
 };
 
