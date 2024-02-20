@@ -26,7 +26,7 @@
         "xlsx": "^0.18.5"
     },
     "devDependencies": {
-        "@tauri-apps/cli": "^1.5.8",
+        "@tauri-apps/cli": "^1.5.10",
         "@types/react": "^18.2.15",
         "@types/react-dom": "^18.2.7",
         "@types/react-redux": "^7.1.25",
