@@ -657,10 +657,10 @@
     "@types/history" "^4.7.11"
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.2.15":
-  version "18.2.45"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.45.tgz#253f4fac288e7e751ab3dc542000fb687422c15c"
-  integrity sha512-TtAxCNrlrBp8GoeEp1npd5g+d/OejJHFxS3OWmrPBMFaVQMSN0OFySozJio5BHxTuTeug00AVXVAjfDSfk+lUg==
+"@types/react@*", "@types/react@^18.2.59":
+  version "18.2.59"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.59.tgz#14c7bcab22e2ce71d9eaa02f78d3d55067724d7f"
+  integrity sha512-DE+F6BYEC8VtajY85Qr7mmhTd/79rJKIHCg99MU9SWPB4xvLb6D1za2vYflgZfmPqQVEr6UqJTnLXEwzpVPuOg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
