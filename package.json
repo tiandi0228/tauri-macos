@@ -33,7 +33,7 @@
         "@types/react-router-dom": "^5.3.3",
         "@types/redux-promise": "^0.5.32",
         "@vitejs/plugin-react": "^4.0.3",
-        "autoprefixer": "^10.4.16",
+        "autoprefixer": "^10.4.19",
         "less": "^4.2.0",
         "postcss": "^8.4.32",
         "tailwindcss": "^3.4.0",
