@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@arco-design/web-react':
-    specifier: ^2.57.2
-    version: 2.58.0(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^2.61.1
+    version: 2.61.1(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)
   '@tauri-apps/api':
     specifier: ^1.5.2
     version: 1.5.3
@@ -101,8 +101,8 @@ packages:
       color: 3.2.1
     dev: false
 
-  /@arco-design/web-react@2.58.0(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-kfROK/3uKsonaQ0tVmzbY4/C0l5w3MerOBAXJqtUgV/I9ewrcG6TZqAQs3dXSUS0pQc+kuqnOBFBv8pT9lIHIw==}
+  /@arco-design/web-react@2.61.1(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-JbrNCLZzpSCkri6319Wq75sZJRFAThqBzKpRiJbUqtLdKljlRR3IYxxfTgEJdWS6hTRu7A0PA6dbiNaVn/89yA==}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
@@ -118,6 +118,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-focus-lock: 2.9.6(@types/react@18.2.46)(react@18.2.0)
+      react-is: 18.2.0
       react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
       resize-observer-polyfill: 1.5.1
       scroll-into-view-if-needed: 2.2.20
@@ -1902,6 +1903,10 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  /react-is@18.2.0:
+    resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: false
 
   /react-redux@9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@4.2.1):
     resolution: {integrity: sha512-9J1xh8sWO0vYq2sCxK2My/QO7MzUMRi3rpiILP/+tDr8krBHixC6JMM17fMK88+Oh3e4Ae6/sHIhNBgkUivwFA==}
