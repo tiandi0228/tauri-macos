@@ -22,10 +22,10 @@
   dependencies:
     color "^3.1.3"
 
-"@arco-design/web-react@^2.57.2":
-  version "2.57.2"
-  resolved "https://registry.yarnpkg.com/@arco-design/web-react/-/web-react-2.57.2.tgz#95181010b4ab5757cb795f847fde521452f675dc"
-  integrity sha512-qsJLjeSBq7KgauoLu6FOzytGgZc6PxHN7X3EWxfvpO6HBzcn4D7kaNP8h8kk74WKDSNrC9wfdp5nyJejZZdbkQ==
+"@arco-design/web-react@^2.61.1":
+  version "2.61.1"
+  resolved "https://registry.yarnpkg.com/@arco-design/web-react/-/web-react-2.61.1.tgz#5cb61e7453bad27192075d72850e2d990d0149b3"
+  integrity sha512-JbrNCLZzpSCkri6319Wq75sZJRFAThqBzKpRiJbUqtLdKljlRR3IYxxfTgEJdWS6hTRu7A0PA6dbiNaVn/89yA==
   dependencies:
     "@arco-design/color" "^0.4.0"
     "@babel/runtime" "^7.5.5"
@@ -36,6 +36,7 @@
     lodash "^4.17.21"
     number-precision "^1.3.1"
     react-focus-lock "^2.9.1"
+    react-is "^18.2.0"
     react-transition-group "^4.3.0"
     resize-observer-polyfill "^1.5.1"
     scroll-into-view-if-needed "2.2.20"
@@ -1628,6 +1629,11 @@ react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-is@^18.2.0:
+  version "18.2.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
+  integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
 react-redux@^9.0.4:
   version "9.0.4"
